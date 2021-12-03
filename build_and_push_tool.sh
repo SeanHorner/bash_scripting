@@ -4,7 +4,10 @@
 # Version Markers
 VER_MAJ=0
 VER_MIN=2
-VER_PATCH=9
+VER_PATCH=12
+
+# Project Directory
+PROJ_DIR="/mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask"
 
 
 ########################################################################################################################
@@ -12,6 +15,16 @@ VER_PATCH=9
 #######################################               FUNCTIONS                 ########################################
 #######################################                                         ########################################
 ########################################################################################################################
+
+
+# Spacer utility
+spacer()
+{
+  echo
+  echo "#######################################################################################################"
+  echo "#######################################################################################################"
+  echo
+}
 
 
 # ECR login
@@ -62,10 +75,11 @@ admin_build_and_push()
       -t utopia_frontend_admin_microservice:latest \
       -t seanhorner/utopia_frontend_admin_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/admin_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/microservice_admin
+      -f $PROJ_DIR/frontend/dockerfiles/admin_dockerfile \
+      $PROJ_DIR/frontend/microservice_admin
 
     docker push seanhorner/utopia_frontend_admin_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest
   else
     docker build --progress=plain \
@@ -75,12 +89,15 @@ admin_build_and_push()
       -t utopia_frontend_admin_microservice:latest \
       -t seanhorner/utopia_frontend_admin_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/admin_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/microservice_admin
+      -f $PROJ_DIR/frontend/dockerfiles/admin_dockerfile \
+      $PROJ_DIR/frontend/microservice_admin
 
     docker push seanhorner/utopia_frontend_admin_microservice:$1
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:$1
+    spacer
     docker push seanhorner/utopia_frontend_admin_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest
   fi
 }
@@ -94,10 +111,11 @@ booking_build_and_push()
       -t utopia_backend_bookings_microservice:latest \
       -t seanhorner/utopia_backend_bookings_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/bookings_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_bookings
+      -f $PROJ_DIR/backend/dockerfiles/bookings_dockerfile \
+      $PROJ_DIR/backend/microservice_bookings
 
     docker push seanhorner/utopia_backend_bookings_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest
   else
     docker build --progress=plain \
@@ -107,12 +125,15 @@ booking_build_and_push()
       -t utopia_backend_bookings_microservice:latest \
       -t seanhorner/utopia_backend_bookings_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/bookings_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_bookings
+      -f $PROJ_DIR/backend/dockerfiles/bookings_dockerfile \
+      $PROJ_DIR/backend/microservice_bookings
 
     docker push seanhorner/utopia_backend_bookings_microservice:$1
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:$1
+    spacer
     docker push seanhorner/utopia_backend_bookings_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest
   fi
 }
@@ -126,10 +147,11 @@ data_producers_build_and_push()
       -t utopia_backend_data_producers_microservice:latest \
       -t seanhorner/utopia_backend_data_producers_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/data_producers_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_data_producers
+      -f $PROJ_DIR/backend/dockerfiles/data_producers_dockerfile \
+      $PROJ_DIR/backend/microservice_data_producers
 
     docker push seanhorner/utopia_backend_data_producers_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest
   else
     docker build --progress=plain \
@@ -139,12 +161,15 @@ data_producers_build_and_push()
       -t utopia_backend_data_producers_microservice:latest \
       -t seanhorner/utopia_backend_data_producers_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/data_producers_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_data_producers
+      -f $PROJ_DIR/backend/dockerfiles/data_producers_dockerfile \
+      $PROJ_DIR/backend/microservice_data_producers
 
     docker push seanhorner/utopia_backend_data_producers_microservice:$1
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:$1
+    spacer
     docker push seanhorner/utopia_backend_data_producers_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest
   fi
 }
@@ -158,10 +183,11 @@ flights_build_and_push()
       -t utopia_backend_flights_microservice:latest \
       -t seanhorner/utopia_backend_flights_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/flights_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_flights
+      -f $PROJ_DIR/backend/dockerfiles/flights_dockerfile \
+      $PROJ_DIR/backend/microservice_flights
 
     docker push seanhorner/utopia_backend_flights_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest
   else
     docker build --progress=plain \
@@ -171,12 +197,15 @@ flights_build_and_push()
       -t utopia_backend_flights_microservice:latest \
       -t seanhorner/utopia_backend_flights_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/flights_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_flights
+      -f $PROJ_DIR/backend/dockerfiles/flights_dockerfile \
+      $PROJ_DIR/backend/microservice_flights
 
     docker push seanhorner/utopia_backend_flights_microservice:$1
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:$1
+    spacer
     docker push seanhorner/utopia_backend_flights_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest
   fi
 }
@@ -190,10 +219,11 @@ users_build_and_push()
       -t utopia_backend_users_microservice:latest \
       -t seanhorner/utopia_backend_users_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/users_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_users
+      -f $PROJ_DIR/backend/dockerfiles/users_dockerfile \
+      $PROJ_DIR/backend/microservice_users
 
     docker push seanhorner/utopia_backend_users_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest
   else
     docker build --progress=plain \
@@ -203,12 +233,15 @@ users_build_and_push()
       -t utopia_backend_users_microservice:latest \
       -t seanhorner/utopia_backend_users_microservice:latest \
       -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest \
-      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/users_dockerfile \
-      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_users
+      -f $PROJ_DIR/backend/dockerfiles/users_dockerfile \
+      $PROJ_DIR/backend/microservice_users
 
     docker push seanhorner/utopia_backend_users_microservice:$1
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:$1
+    spacer
     docker push seanhorner/utopia_backend_users_microservice:latest
+    spacer
     docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest
   fi
 }
@@ -286,4 +319,8 @@ while [ "$1" != "" ]; do
   shift
 done
 
-echo "Successfully completed build and push."
+echo
+echo "****************************************************************************************************************"
+echo "***********************              Successfully completed build and push.              ***********************"
+echo "****************************************************************************************************************"
+echo
