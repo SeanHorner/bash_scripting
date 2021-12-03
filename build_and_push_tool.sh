@@ -4,7 +4,7 @@
 # Version Markers
 VER_MAJ=0
 VER_MIN=2
-VER_PATCH=6
+VER_PATCH=9
 
 
 ########################################################################################################################
@@ -54,133 +54,170 @@ usage()
 }
 
 
-# Function to test that the appropriate type of argument is passed to each builder
-param_tester()
-{
-  param="$1"
-  first_letter="${param:0:1}"
-  if [ "$param" == "" ] || [ "$first_letter" == "-" ]; then
-    echo "Every image builder requires a version number, please provide one for $2."
-    echo "Please use the -h or --help flag to see appropriate usage."
-    exit 1
-  fi
-}
-
-
 # Admin microservice build and push utility
 admin_build_and_push()
 {
-  param_tester "$1" "-a"
+  if [ "$1" == "" ]; then
+    docker build --progress=plain \
+      -t utopia_frontend_admin_microservice:latest \
+      -t seanhorner/utopia_frontend_admin_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/admin_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/microservice_admin
 
-  docker build \
-    -t utopia_frontend_admin_microservice:v$1 \
-    -t seanhorner/utopia_frontend_admin_microservice:v$1 \
-    -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:v$1 \
-    -t utopia_frontend_admin_microservice:latest \
-    -t seanhorner/utopia_frontend_admin_microservice:latest \
-    -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest \
-    -f frontend/admin_dockerfile \
-    frontend/microservice_admin
+    docker push seanhorner/utopia_frontend_admin_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest
+  else
+    docker build --progress=plain \
+      -t utopia_frontend_admin_microservice:$1 \
+      -t seanhorner/utopia_frontend_admin_microservice:$1 \
+      -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:$1 \
+      -t utopia_frontend_admin_microservice:latest \
+      -t seanhorner/utopia_frontend_admin_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/admin_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/frontend/microservice_admin
 
-  docker push seanhorner/utopia_frontend_admin_microservice:v$1
-  docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:v$1
-  docker push seanhorner/utopia_frontend_admin_microservice:latest
-  docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest
+    docker push seanhorner/utopia_frontend_admin_microservice:$1
+    docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:$1
+    docker push seanhorner/utopia_frontend_admin_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_frontend_admin_microservice:latest
+  fi
 }
 
 
 # Bookings microservice build and push utility
 booking_build_and_push()
 {
-  param_tester "$1" "-b"
+  if [ "$1" == "" ]; then
+    docker build --progress=plain \
+      -t utopia_backend_bookings_microservice:latest \
+      -t seanhorner/utopia_backend_bookings_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/bookings_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_bookings
 
-  docker build \
-    -t utopia_backend_bookings_microservice:v$1 \
-    -t seanhorner/utopia_backend_bookings_microservice:v$1 \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:v$1 \
-    -t utopia_backend_bookings_microservice:latest \
-    -t seanhorner/utopia_backend_bookings_microservice:latest \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest \
-    -f backend/bookings_dockerfile \
-    backend/microservice_bookings
+    docker push seanhorner/utopia_backend_bookings_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest
+  else
+    docker build --progress=plain \
+      -t utopia_backend_bookings_microservice:$1 \
+      -t seanhorner/utopia_backend_bookings_microservice:$1 \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:$1 \
+      -t utopia_backend_bookings_microservice:latest \
+      -t seanhorner/utopia_backend_bookings_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/bookings_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_bookings
 
-  docker push seanhorner/utopia_backend_bookings_microservice:v$1
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:v$1
-  docker push seanhorner/utopia_backend_bookings_microservice:latest
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest
+    docker push seanhorner/utopia_backend_bookings_microservice:$1
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:$1
+    docker push seanhorner/utopia_backend_bookings_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_bookings_microservice:latest
+  fi
 }
 
 
 # Data producers microservice build and push utility
 data_producers_build_and_push()
 {
-  param_tester "$1" "-d"
+  if [ "$1" == "" ]; then
+    docker build --progress=plain \
+      -t utopia_backend_data_producers_microservice:latest \
+      -t seanhorner/utopia_backend_data_producers_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/data_producers_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_data_producers
 
-  docker build \
-    -t utopia_backend_data_producers_microservice:v$1 \
-    -t seanhorner/utopia_backend_data_producers_microservice:v$1 \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:v$1 \
-    -t utopia_backend_data_producers_microservice:latest \
-    -t seanhorner/utopia_backend_data_producers_microservice:latest \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest \
-    -f backend/data_producers_dockerfile \
-    backend/microservice_data_producers
+    docker push seanhorner/utopia_backend_data_producers_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest
+  else
+    docker build --progress=plain \
+      -t utopia_backend_data_producers_microservice:$1 \
+      -t seanhorner/utopia_backend_data_producers_microservice:$1 \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:$1 \
+      -t utopia_backend_data_producers_microservice:latest \
+      -t seanhorner/utopia_backend_data_producers_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/data_producers_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_data_producers
 
-  docker push seanhorner/utopia_backend_data_producers_microservice:v$1
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:v$1
-  docker push seanhorner/utopia_backend_data_producers_microservice:latest
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest
+    docker push seanhorner/utopia_backend_data_producers_microservice:$1
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:$1
+    docker push seanhorner/utopia_backend_data_producers_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_data_producers_microservice:latest
+  fi
 }
 
 
 # Flights microservice build and push utility
 flights_build_and_push()
 {
-  param_tester "$1" "-f"
+  if [ "$1" == "" ]; then
+    docker build --progress=plain \
+      -t utopia_backend_flights_microservice:latest \
+      -t seanhorner/utopia_backend_flights_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/flights_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_flights
 
-  docker build \
-    -t utopia_backend_flights_microservice:v$1 \
-    -t seanhorner/utopia_backend_flights_microservice:v$1 \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:v$1 \
-    -t utopia_backend_flights_microservice:latest \
-    -t seanhorner/utopia_backend_flights_microservice:latest \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest \
-    -f backend/flights_dockerfile \
-    backend/microservice_flights
+    docker push seanhorner/utopia_backend_flights_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest
+  else
+    docker build --progress=plain \
+      -t utopia_backend_flights_microservice:$1 \
+      -t seanhorner/utopia_backend_flights_microservice:$1 \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:$1 \
+      -t utopia_backend_flights_microservice:latest \
+      -t seanhorner/utopia_backend_flights_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/flights_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_flights
 
-  docker push seanhorner/utopia_backend_flights_microservice:v$1
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:v$1
-  docker push seanhorner/utopia_backend_flights_microservice:latest
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest
+    docker push seanhorner/utopia_backend_flights_microservice:$1
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:$1
+    docker push seanhorner/utopia_backend_flights_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_flights_microservice:latest
+  fi
 }
 
 
 # Users microservice build and push utility
 users_build_and_push()
 {
-  param_tester "$1" "-u"
+  if [ "$1" == "" ]; then
+    docker build --progress=plain \
+      -t utopia_backend_users_microservice:latest \
+      -t seanhorner/utopia_backend_users_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/users_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_users
 
-  docker build \
-    -t utopia_backend_users_microservice:v$1 \
-    -t seanhorner/utopia_backend_users_microservice:v$1 \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:v$1 \
-    -t utopia_backend_users_microservice:latest \
-    -t seanhorner/utopia_backend_users_microservice:latest \
-    -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest \
-    -f backend/users_dockerfile \
-    backend/microservice_users
+    docker push seanhorner/utopia_backend_users_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest
+  else
+    docker build --progress=plain \
+      -t utopia_backend_users_microservice:$1 \
+      -t seanhorner/utopia_backend_users_microservice:$1 \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:$1 \
+      -t utopia_backend_users_microservice:latest \
+      -t seanhorner/utopia_backend_users_microservice:latest \
+      -t public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest \
+      -f /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/users_dockerfile \
+      /mnt/d/programming_projects/smoothstack_training/python_cloud_engineer/utopia_airlines_flask/backend/microservice_users
 
-  docker push seanhorner/utopia_backend_users_microservice:v$1
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:v$1
-  docker push seanhorner/utopia_backend_users_microservice:latest
-  docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest
+    docker push seanhorner/utopia_backend_users_microservice:$1
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:$1
+    docker push seanhorner/utopia_backend_users_microservice:latest
+    docker push public.ecr.aws/b9s2q8s8/utopia_backend_users_microservice:latest
+  fi
 }
 
 
-tester_func()
-{
-  echo "Ran the tester with param $1"
-}
+#tester_func()
+#{
+#  echo "Ran the tester with param $1"
+#}
 
 
 ########################################################################################################################
@@ -190,37 +227,58 @@ tester_func()
 ########################################################################################################################
 
 while [ "$1" != "" ]; do
+  next=$2
   case $1 in
-    -a | --admin )        shift
-                          admin_build_and_push $1
+    -a | --admin )        if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+                            admin_build_and_push
+                          else
+                            admin_build_and_push "$next"
+                            shift
+                          fi
                           ;;
-    -b | --bookings )     shift
-                          booking_build_and_push $1
+    -b | --bookings )     if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+                            booking_build_and_push
+                          else
+                            booking_build_and_push "$next"
+                            shift
+                          fi
                           ;;
-    -d | --data_prod )    shift
-                          data_producers_build_and_push $1
+    -d | --data_prod )    if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+                            data_producers_build_and_push
+                          else
+                            data_producers_build_and_push "$next"
+                            shift
+                          fi
                           ;;
-    -f | --flights )      shift
-                          flights_build_and_push $1
+    -f | --flights )      if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+                            flights_build_and_push
+                          else
+                            flights_build_and_push "$next"
+                            shift
+                          fi
                           ;;
-    -u | --users )        shift
-                          users_build_and_push $1
+    -u | --users )        if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+                            users_build_and_push
+                          else
+                            users_build_and_push "$next"
+                            shift
+                          fi
                           ;;
     -h | --help )         usage
                           exit
                           ;;
-    -v | --version )      echo "version: $VER_MAJ.$VER_MIN.$VER_PATCH "
+    -v | --version )      echo "Utopia Build and Push Tool $VER_MAJ.$VER_MIN.$VER_PATCH "
                           exit
                           ;;
     -l | --login )        login
                           ;;
-    -t )                  if [ "$2" == "" ] || [ ${"$2":0:1} == "-" ]; then
-                            tester_func
-                          else
-                            tester_func "$2"
-                            shift
-                          fi
-                          ;;
+#    -t )                  if [ "$next" == "" ] || [ "${next:0:1}" == "-" ]; then
+#                            tester_func
+#                          else
+#                            tester_func "$next"
+#                            shift
+#                          fi
+#                          ;;
     * )                   usage
                           exit 1
                           ;;
